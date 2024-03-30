@@ -1,37 +1,26 @@
 import React, { useState } from 'react';
-import './App.css';
+import { CacheProvider, ThemeProvider } from "@emotion/react"
+import { BrowserRouter } from 'react-router-dom'
+import createCache from "@emotion/cache"
+import theme from './styles/mui'
+import RouterApp from './RouterApp';
 
+const cacheRtl = createCache({
+  key: "muirtl",
+})
 
 function App() {
-  const ipcRenderer = (window as any).ipcRenderer;
-  const [test, setTest] = useState('')
-  const handleSubmit = async () => {
-    try {
-      const result = await new Promise((resolve, reject) => {
-        ipcRenderer.on('submit:todoForm:response', (event:any, response:any) => {
-          resolve(response);
-        });
-
-        ipcRenderer.send('submit:todoForm', 'hello world');
-      });
-
-      console.log('Result from main process:', result);
-      setTest(result as string)
-    } catch (error) {
-      console.error('Error:', error);
-    }
-  };
 
   return (
-    <div className="container mt-2">
-    <h1>hello world</h1>
-      <button onClick={() => handleSubmit()}>
-        click
-      </button>
-      <p>
-        result: {test}
-      </p>
-    </div>
+    <BrowserRouter>
+      <CacheProvider value={cacheRtl}>
+        <ThemeProvider theme={theme}>
+          {/* <ModalsProvider> */}
+              <RouterApp />
+          {/* </ModalsProvider> */}
+        </ThemeProvider>
+      </CacheProvider>
+    </BrowserRouter>
   );
 }
 

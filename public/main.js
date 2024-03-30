@@ -1,7 +1,7 @@
 const { app, BrowserWindow, ipcMain } = require('electron');
 const path = require('path');
 const url = require('url');
-const { handleTodoFormSubmission } = require('./handlers/core');
+const { getLocalIps } = require('./handlers/core');
 
 const isDev =  !app.isPackaged
 
@@ -42,4 +42,4 @@ app.on('window-all-closed', () => {
 
 
 
-ipcMain.on('submit:todoForm', handleTodoFormSubmission);
+ipcMain.on('native:ips', getLocalIps);
