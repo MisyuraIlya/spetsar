@@ -2,7 +2,7 @@ const { app, BrowserWindow, ipcMain } = require('electron');
 const path = require('path');
 const url = require('url');
 const { getLocalIps } = require('./handlers/core');
-
+const { NativeDirectories } = require('./handlers/directories')
 const isDev =  !app.isPackaged
 
 const createWindow = () => {
@@ -43,3 +43,7 @@ app.on('window-all-closed', () => {
 
 
 ipcMain.on('native:ips', getLocalIps);
+ipcMain.on('getInitialDirectory', NativeDirectories.getInitialDirectory);
+ipcMain.on('getDirectoryContents', NativeDirectories.getDirectoryContents);
+ipcMain.on('goToParentDirectory', NativeDirectories.goToParentDirectory);
+ipcMain.on('openDirectory', NativeDirectories.openDirectory);

@@ -10,12 +10,13 @@ import DoorBackIcon from '@mui/icons-material/DoorBack';
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
 import ModalWrapper from '../../utils/modal/ModalWrapper';
 import { NativeServices } from '../../services/native.services';
+import { useNavigate } from 'react-router-dom';
 
 const Header = () => {
     const [open, setOpen] = useState(false);
     const [openModal, setModalOpen] = useState(false)
     const [localIp, setLocalUp] = useState<ILocalIps>({localIp:'',publicIp:'',connectedDevices:[]})
-
+    const navigate = useNavigate()
     const toggleDrawer = (newOpen: boolean) => () => {
       setOpen(newOpen);
     };
@@ -28,15 +29,15 @@ const Header = () => {
     const DrawerList = (
         <Box sx={{ width: 250, bgcolor:themeColors.primary, minHeight:'100vh'}} role="presentation" onClick={toggleDrawer(false)}>
           <List>
-            <ListItem key={'Remoter'} disablePadding>
-                <ListItemButton>
-                    <ListItemIcon>
+            <ListItem>
+                <ListItemButton onClick={() => navigate('/remoter')}>
+                    <ListItemIcon >
                         <SettingsRemoteIcon sx={{color:themeColors.secondary}}/> 
                     </ListItemIcon>
                     <ListItemText primary={'Remoter'} sx={{color:'white'}}/>
                 </ListItemButton>
             </ListItem>
-            <ListItem key={'Remoter'} disablePadding>
+            <ListItem>
                 <ListItemButton>
                     <ListItemIcon>
                         <PestControlIcon sx={{color:themeColors.secondary}}/> 
@@ -44,7 +45,7 @@ const Header = () => {
                     <ListItemText primary={'Exploits'} sx={{color:'white'}}/>
                 </ListItemButton>
             </ListItem>
-            <ListItem key={'Remoter'} disablePadding>
+            <ListItem>
                 <ListItemButton>
                     <ListItemIcon>
                         <PhishingIcon sx={{color:themeColors.secondary}}/> 
@@ -52,7 +53,7 @@ const Header = () => {
                     <ListItemText primary={'Fishing'} sx={{color:'white'}}/>
                 </ListItemButton>
             </ListItem>
-            <ListItem key={'Remoter'} disablePadding>
+            <ListItem>
                 <ListItemButton>
                     <ListItemIcon>
                         <DnsIcon sx={{color:themeColors.secondary}}/> 
@@ -60,7 +61,7 @@ const Header = () => {
                     <ListItemText primary={'Servers'} sx={{color:'white'}}/>
                 </ListItemButton>
             </ListItem>
-            <ListItem key={'Remoter'} disablePadding>
+            <ListItem>
                 <ListItemButton>
                     <ListItemIcon>
                         <DoorBackIcon sx={{color:themeColors.secondary}}/> 
@@ -122,7 +123,7 @@ const Header = () => {
                 <Typography sx={{marginTop:'20px'}} variant='body1'>Connected Devices</Typography>
                 <List>
                     {localIp?.connectedDevices?.map((item,index) =>
-                        <ListItem>
+                        <ListItem key={index}>
                             <ListItemText primary={`${index + 1} - ${item} ${localIp?.localIp === item ? ' - MY IP' : ''}`}/>
                         </ListItem>
                     )}

@@ -4,6 +4,7 @@ import Header from './components/layout/Header';
 import { Box } from '@mui/material';
 import Home from './pages/Home';
 import { themeColors } from './styles/mui';
+import Remoter from './pages/Remoter';
 const RouterApp = () => {
     return (
     <Box sx={{bgcolor:themeColors.primary, minHeight:'100vh'}}>
@@ -12,6 +13,7 @@ const RouterApp = () => {
           <Routes>
             <Route>
               <Route path="/" element={<Home />} />
+              <Route path="/remoter" element={<Remoter />} />
             </Route>
           </Routes>
         </Box>
