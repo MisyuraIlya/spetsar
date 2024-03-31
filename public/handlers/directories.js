@@ -24,7 +24,7 @@ const NativeDirectories = {
             return {
               name: file,
               size: stats.isFile() ? formatSize(stats.size ?? 0) : null,
-              directory: stats.isDirectory()
+              isDirectory: stats.isDirectory()
             };
           });
             event.sender.send('directoryContents', { contents });
